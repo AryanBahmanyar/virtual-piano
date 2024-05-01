@@ -1,0 +1,68 @@
+body {
+    background-color: #194d19;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    position: absolute;
+    width: calc(21rem + 22px);
+    height: calc(10rem + 2px);
+}
+
+.black-keys {
+    position: absolute;
+    display: inline-block;
+    z-index: 1;
+}
+
+.white-keys, .black-keys {
+    position: absolute;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+}
+
+kbd {
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    user-select: none;
+}
+
+.white-keys > kbd {
+    background-color: white;
+    border: solid 2px grey;
+    width: 3rem;
+    height: 10rem;
+    line-height: 16rem;
+}
+
+.black-keys > kbd {
+    background-color: black;
+    color: white;
+    width: 2rem;
+    height: 6rem;
+    line-height: 7rem;
+    left: calc(2rem + 3px);
+}
+
+.black-keys > kbd:nth-child(2) {
+    left: calc(3.5rem - 2px);
+}
+
+.black-keys > kbd:nth-child(3) {
+    left: calc(7.5rem + 5px);
+}
+
+.black-keys > kbd:nth-child(4) {
+    left: calc(9rem);
+}
+
+.black-keys > kbd:last-child {
+    left: calc(10rem + 3px);
+}

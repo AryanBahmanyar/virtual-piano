@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Piano</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="white-keys"></div>
+        <div class="black-keys"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const whiteKeyChars = ['A', 'S', 'D', 'F', 'G', 'H', 'J'];
+            const blackKeyChars = ['W', 'E', 'T', 'Y', 'U'];
+
+            const whiteKeys = document.querySelector('.white-keys');
+            const blackKeys = document.querySelector('.black-keys');
+            let keyDown = null;
+
+            initKeys(true);
+            initKeys(false);
+
+            document.addEventListener("keydown", event => {
+                if (keyDown === null) {
+                    let char = event.code.charAt(3);
+
+                    if (whiteKeyChars.includes(char))
+                        pressWhiteKey(char);
+                    else if (blackKeyChars.includes(char))
+                        pressBlackKey(char);
+                    else
+                        console.log(`Error: ${char} is not a valid key!`);
+                }
+            });
+            document.addEventListener("keyup", () => {
+                if (keyDown !== null) {
+                    if (whiteKeys.contains(keyDown))
+                        keyDown.style.backgroundColor = "white";
+                    else
+                        keyDown.style.backgroundColor = "black";
+                    keyDown = null;
+                }
+            });
+            function initKeys(white) {
+                for (let char of (white ? whiteKeyChars : blackKeyChars)) {
+                    let key = document.createElement('kbd');
+                    key.textContent = char;
+
+                    if (white)
+                        whiteKeys.appendChild(key);
+                    else
+                        blackKeys.appendChild(key);
+                }
+            }
+            function pressWhiteKey(char) {
+                let key = whiteKeys.children[whiteKeyChars.indexOf(char)];
+                keyDown = key;
+                key.style.backgroundColor = "darkGray";
+                new Audio(`white_keys/${char}.mp3`).play();
+            }
+            function pressBlackKey(char) {
+                let key = blackKeys.children[blackKeyChars.indexOf(char)];
+                keyDown = key;
+                key.style.backgroundColor = "#404040";
+                new Audio(`black_keys/${char}.mp3`).play();
+            }
+        });
+    </script>
+</body>
+</html>
